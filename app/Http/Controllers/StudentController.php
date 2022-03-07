@@ -83,15 +83,13 @@ class StudentController extends ApiController
         $student = Student::where('id' , $id)->first();
         $student->fill($data);
 
+            if ($data['image'] === "null") {
+                unset($data['image']);
+            } else {
+                $student->image = custom_image($request);
+            }
 
-        if ($data['image'] === null) {
-            unset($data['image']);
             $student->update($data);
-        } else {
-            $student->image = custom_image($request);
-            $student->update($data);
-        }
-        $student->save();
         return $this->successResponse(['message' => 'Student Updated Successfully!'], 200);
     }
 
