@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest;
+use App\Http\Requests\StudentRequestUpdate;
 use App\Models\Classe;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -76,20 +77,19 @@ class StudentController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StudentRequestUpdate $request, $id)
     {
-        $data =  $request->all();
-
+        
         $student = Student::where('id' , $id)->first();
-        $student->fill($data);
+        $student->first_name = $request->first_name;
+        $student->last_name = $request->last_name;
+        $student->date_of_birth = $request->date_of_birth;
+        $student->is_active = $request->is_active; 
 
-            if ($data['image'] === "null") {
-                unset($data['image']);
-            } else {
-                $student->image = custom_image($request);
-            }
-
-            $student->update($data);
+        if($request->hasFile('image')) {
+            $student->image = custom_image($request);
+        }
+        $student->save();
         return $this->successResponse(['message' => 'Student Updated Successfully!'], 200);
     }
 
