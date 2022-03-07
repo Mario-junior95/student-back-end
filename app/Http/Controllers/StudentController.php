@@ -79,12 +79,13 @@ class StudentController extends ApiController
      */
     public function update(StudentRequestUpdate $request, $id)
     {
-        
+
         $student = Student::where('id' , $id)->first();
         $student->first_name = $request->first_name;
         $student->last_name = $request->last_name;
         $student->date_of_birth = $request->date_of_birth;
         $student->is_active = $request->is_active; 
+        $student->class_id = $request->class_id; 
 
         if($request->hasFile('image')) {
             $student->image = custom_image($request);
