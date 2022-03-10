@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\PassportAuthController;
 use App\Http\Controllers\ClassesConrtoller;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
@@ -43,5 +44,8 @@ Route::group(
     function () {
         Route::resource('student', StudentController::class);
         Route::get('/classes' , [ ClassesConrtoller::class , 'index']);
+        Route::get('/classes' , [ ClassesConrtoller::class , 'index']);
+        
+        Route::resource('/department' ,DepartmentController::class);
     }
 );
