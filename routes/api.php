@@ -25,7 +25,6 @@ Route::group([
 ], function () {
     Route::post('login', [PassportAuthController::class, 'login']);
     Route::post('register', [PassportAuthController::class, 'register']);
-
 });
 
 Route::group([
@@ -43,9 +42,10 @@ Route::group(
     ],
     function () {
         Route::resource('student', StudentController::class);
-        Route::get('/classes' , [ ClassesConrtoller::class , 'index']);
-        Route::get('/classes' , [ ClassesConrtoller::class , 'index']);
-        
-        Route::resource('/department' ,DepartmentController::class);
+        Route::get('/classes', [ClassesConrtoller::class, 'index']);
+        Route::get('/classes', [ClassesConrtoller::class, 'index']);
+
+        Route::resource('/department', DepartmentController::class);
+        Route::get('/all-departments', [DepartmentController::class, 'getAllDepartments']);
     }
 );

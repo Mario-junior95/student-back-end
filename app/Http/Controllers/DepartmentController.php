@@ -58,6 +58,15 @@ class DepartmentController extends ApiController
         ]);
     }
 
+    public function getAllDepartments()
+    {
+        $allDepartments = Department::get(['id', 'name']);
+
+        return response()->json([
+            'parents' => $allDepartments
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -127,7 +136,7 @@ class DepartmentController extends ApiController
         $getDepartmentById->name = $request->name;
         $getDepartmentById->slug = $this->slugify($request->name);
         $getDepartmentById->description = $request->description;
-        $getDepartmentById->parent_id = $request->parent_id;
+        // $getDepartmentById->parent_id = $request->parent_id;
         $getDepartmentById->save();
 
         return $this->successResponse(['message' => 'Department Updated successfully!'], 200);
